@@ -36,7 +36,7 @@ for (i in seq(10,120,10)){
   Maxscore_MAP <- toread_csv('MAP', 56)
   Maxscore_SAP <- toread_csv('SAP', 12)
   freqnum = 0.5
-  health_score <- tosumscore(Maxscore_health, 0.1, 5 ,k)
+  health_score <- tosumscore(Maxscore_health, 0.2, 5 ,k)
   MAP_score <- tosumscore(Maxscore_MAP, freqnum, 56 ,k)
   SAP_score <- tosumscore(Maxscore_SAP, freqnum, 12 ,k)
   AP.score <- data.frame(k,health_score, MAP_score, SAP_score)
@@ -53,7 +53,7 @@ map_filter <- Maxscore_MAP %>%
   group_by(gene_name) %>%
   summarise(freq = n(),
             score = sum(score) / freq) %>%
-  filter(freq > 0.4 * 56) %>%
+  filter(freq > 0.5 * 56) %>%
   na.omit()
 sap_filter <- Maxscore_SAP %>%
   group_by(gene_name) %>%
@@ -80,7 +80,7 @@ scoresDNB.sum <- data.frame()
 for (i in seq(10,120,10)){
   k = i 
   freqnum = 0.5
-  healthDNB_score <- tosumDNBscore(Maxscore_health, 0.1, 5 ,k)
+  healthDNB_score <- tosumDNBscore(Maxscore_health, 0.2, 5 ,k)
   MAPDNB_score <- tosumDNBscore(Maxscore_MAP, freqnum, 56 ,k)
   SAPDNB_score <- tosumDNBscore(Maxscore_SAP, freqnum, 12 ,k)
   APDNB.score <- data.frame(k,healthDNB_score, MAPDNB_score, SAPDNB_score)
@@ -153,8 +153,8 @@ health_ssn <- ssnedgetoread_csv('Health',5)
 MAP_ssn <- ssnedgetoread_csv('MAP',56)
 SAP_ssn <- ssnedgetoread_csv('SAP',12)
 health_ssn.dnb <- tosumedge(health_ssn, 0.2, 5)
-MAP_ssn.dnb <- tosumedge(MAP_ssn, 0.2, 56)
-SAP_ssn.dnb <- tosumedge(SAP_ssn, 0.4, 12)
+MAP_ssn.dnb <- tosumedge(MAP_ssn, 0.5, 56)
+SAP_ssn.dnb <- tosumedge(SAP_ssn, 0.5, 12)
 write.csv(health_ssn.dnb,file = 'health_ssn_dnb.csv',row.names = F, quote = F)
 write.csv(MAP_ssn.dnb,file = 'MAP_ssn.dnb.csv',row.names = F, quote = F)
 write.csv(SAP_ssn.dnb,file = 'SAP_ssn.dnb.csv',row.names = F, quote = F)
